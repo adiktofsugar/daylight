@@ -1,0 +1,10 @@
+#!/usr/bin/env zsh
+setopt errexit errreturn pipefail unset
+cwd="${0:a:h}"
+eget="$cwd/.cache/eget"
+if ! [[ -e "$eget" ]]; then
+  curl -qf https://zyedidia.github.io/eget.sh | bash >/dev/null
+  mkdir -p "${eget:h}"
+  mv ./eget "$eget"
+fi
+"$eget" "$@"

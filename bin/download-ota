@@ -1,0 +1,3 @@
+#!/usr/bin/env zsh
+root_dir="${0:a:h:h}"
+uv run --project "$root_dir" "$root_dir/download_ota/main.py" "$@"

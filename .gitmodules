@@ -1,0 +1,3 @@
+[submodule "daylight-dc-1-images"]
+	path = daylight-dc-1-images
+	url = git@hf.co:datasets/anincrediblyshortname/daylight-dc-1-images

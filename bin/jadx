@@ -1,0 +1,13 @@
+#!/usr/bin/env zsh
+setopt errexit errreturn pipefail unset
+cwd="${0:a:h}"
+eget="$cwd/eget"
+jadx_dir="$cwd/.cache/jadx"
+jadx="$jadx_dir/bin/jadx"
+url="https://github.com/skylot/jadx/releases/download/v1.5.5/jadx-1.5.5.zip"
+if ! [[ -e "$jadx" ]]; then
+  "$eget" -q "$url" --all --download-only --to "$jadx_dir"
+  unzip -qd "$jadx_dir" "$jadx_dir/jadx-1.5.5.zip"
+fi
+chmod +x "$jadx"
+"$jadx" "$@"

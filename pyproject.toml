@@ -1,0 +1,9 @@
+[project]
+name = "daylight-ota-tools"
+version = "1.0.0"
+description = "Tools for downloading Daylight DC-1 OTA updates"
+requires-python = ">=3.8"
+dependencies = [
+    "requests>=2.31.0",
+    "pycryptodome>=3.19.0",
+]

@@ -1,0 +1,9 @@
+Daylight DC-1 workspace
+---
+
+This has some scripts, docs, and files for the daylight dc-1 <https://daylightcomputer.com>.
+
+## Scripts
+
+All scripts are in bin, you should be able to execute them directly. You can also run `export bin/env.sh` to add to your path.
+

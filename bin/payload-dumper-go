@@ -1,0 +1,11 @@
+#!/usr/bin/env zsh
+setopt errexit errreturn pipefail unset
+cwd="${0:a:h}"
+eget="$cwd/eget"
+pdg="$cwd/.cache/payload-dumper-go"
+
+if ! [[ -e "$pdg" ]]; then
+  mkdir -p "${pdg:h}"
+  "$eget" -q "ssut/payload-dumper-go" --to "$pdg"
+fi
+"$pdg" "$@"
