@@ -3,18 +3,24 @@ setopt errexit errreturn pipefail nounset
 
 usage="
 flash-ota [-h] <mode> [<dir>]
--h        help
--s <slot> the slot to target
-          is appended to partition name, so 'boot' becomes 'boot_<slot>'
-<mode>    d for fastboot_d
-          n for normal fastboot
-<dir>     directory to use, defaults to cwd
+-h          help
+--with-avb  don't set --disable-verity --disable-verification on the vbmeta flashes
+-s <slot>   the slot to target
+            is appended to partition name, so 'boot' becomes 'boot_<slot>'
+<mode>      d for fastboot_d
+            n for normal fastboot
+<dir>       directory to use, defaults to cwd
 "
 
-zparseopts -D -F -- "h=arg_help" "s:=arg_slot" || exit 1
+zparseopts -D -F -- "h=arg_help" "s:=arg_slot" "-with-avb=arg_with_avb" || exit 1
 if [[ -n "$arg_help" ]]; then
   echo "$usage"
   exit
+fi
+
+should_add_disable_flags=true
+if [[ -n $arg_with_avb ]]; then
+  should_add_disable_flags=
 fi
 
 slot_suffix=
@@ -58,7 +64,11 @@ if [[ "$mode" = d ]]; then
 elif [[ "$mode" = n ]]; then
   echo "flashing fastboot normal mode images"
   for part in ${fastboot_parts[@]}; do
-    fastboot flash "$part$slot_suffix" "$dir/$part.img"
+    this_should_add_disable_flags=
+    if [[ "$part" =~ ^vbmeta && $should_add_disable_flags ]]; then
+      this_should_add_disable_flags=true
+    fi
+    fastboot flash${this_should_add_disable_flags:+ --disable-verification --disable-verity} "$part$slot_suffix" "$dir/$part.img"
   done
 else
   echo "mode $mode is not a valid mode"
