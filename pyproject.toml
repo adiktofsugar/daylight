@@ -7,3 +7,8 @@ dependencies = [
     "requests>=2.31.0",
     "pycryptodome>=3.19.0",
 ]
+
+[tool.uv.workspace]
+members = [
+    "logcat-tui",
+]

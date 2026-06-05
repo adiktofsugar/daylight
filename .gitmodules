@@ -1,3 +1,6 @@
 [submodule "daylight-dc-1-images"]
 	path = images
 	url = git@hf.co:datasets/anincrediblyshortname/daylight-dc-1-images
+[submodule "logcat-tui"]
+	path = logcat-tui
+	url = git@github.com:adiktofsugar/logcat-tui.git
